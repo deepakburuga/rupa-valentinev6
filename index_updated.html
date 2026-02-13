@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Rupa ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7') no-repeat center center/cover;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+
+h1 {
+    font-size: 2.4rem;
+    margin-bottom: 30px;
+}
+
+.glow {
+    color: #ff9ecb;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ff4da6; }
+    to { text-shadow: 0 0 25px #ff4da6, 0 0 40px #ff1a8c; }
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 12px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#yesBtn {
+    background: white;
+    color: #ff4e50;
+}
+
+#noBtn {
+    background: black;
+    color: white;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-6px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.3s;
+}
+
+.heart {
+    position: fixed;
+    font-size: 50px;
+    animation: floatUp 7s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+.explosion {
+    position: fixed;
+    font-size: 35px;
+    animation: explode 1.2s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.5) translateY(-80px); opacity: 0; }
+}
+
+iframe { display: none; }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="mainText"><span class="glow">Rupa</span>, will you be my Valentine? ❤️</h1>
+
+    <div class="button-row" id="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+</div>
+
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/qHq2nS0LhHk?autoplay=1&loop=1&playlist=qHq2nS0LhHk"
+allow="autoplay">
+</iframe>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const mainText = document.getElementById("mainText");
+const buttons = document.getElementById("buttons");
+
+let yesScale = 1;
+
+function moveNoButton() {
+    noBtn.style.position = "fixed";
+    const padding = 10;
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+function handleNoClick() {
+    noBtn.classList.add("shake");
+    setTimeout(() => {
+        noBtn.classList.remove("shake");
+        moveNoButton();
+    }, 300);
+    yesScale += 0.2;
+    yesBtn.style.transform = "scale(" + yesScale + ")";
+}
+
+noBtn.addEventListener("click", handleNoClick);
+noBtn.addEventListener("touchstart", handleNoClick);
+
+yesBtn.addEventListener("click", function() {
+
+    // Explosion effect
+    for (let i = 0; i < 35; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("explosion");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = Math.random() * window.innerHeight + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1200);
+    }
+
+    // Calculate hours since Nov 28, 2022 11:00 AM
+    const startDate = new Date("November 28, 2022 11:00:00");
+    const now = new Date();
+    const diff = now - startDate;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+
+    mainText.innerHTML = "Kidding 😜 We are already together since November 28, 2022 11:00 AM ❤️<br><br>" +
+                         hours + " hours and still counting 💕";
+
+    buttons.style.display = "none";
+});
+
+// Floating background hearts
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}, 700);
+
+</script>
+
+</body>
+</html>
